@@ -1,31 +1,31 @@
 import kotlin.random.Random
 
 class Human(
-    var fullName: String,
-    var age: Int,
+    var Name: String,                              
+    var age: Int,                                   // Создаём класс Human со свойствами Имя, востраст и текущая скорость.
     var currentSpeed: Int
 ) {
-    var x: Int = 0
+    var x: Int = 0                                 // Задаём начальные координаты для всех симуляций людей ( 0 ; 0 ) соответственно
     var y: Int = 0
     
     fun move() {
-        x += Random.nextInt(-currentSpeed, currentSpeed)
+        x += Random.nextInt(-currentSpeed, currentSpeed)           // случайно "добавляем" или "удаляем" значение равное +/- текущей скорости к значению координат
         y += Random.nextInt(-currentSpeed, currentSpeed)
 
-        println("${fullName.padEnd(20)} (${age} лет)  | $x | $y |")
+        println("${Name.padEnd(20)} (${age} лет)  | $x | $y |")    // просто выводим информацию об участникахсимуляции
     }
 }
 
 fun main() {
-    var time = 5
+    var time = 5                                                  // Время продолжительности симуляции
  
-    val people = listOf(
+    val people = listOf(                                          // Лист участников 
         Human("Даниил Твердохлеб", 25, 7),
         Human("Рома Пипиленко", 30, 3),
         Human("Илья Чащин", 22, 6),
         Human("Максим Сократов", 28, 4),
         Human("Александр Титякин", 35, 8),
-        Human("Михаил Кремер", 26, 2),
+        Human("Михаил Кремер", 26, 2),                            
         Human("Ульяна Курман", 31, 9),
         Human("Лев Приземин", 24, 7),
         Human("Михаил Пыжов", 29, 5),
@@ -37,20 +37,20 @@ fun main() {
     )
     
     while (time > 0) {
-        println("~".repeat(60))
-        println("            [          Время: ${6 - time} секунда           ]")
+        println("~".repeat(60))                                                       // Визуальное разделение границ вывод по времени
+        println("            [          Время: ${6 - time} секунда           ]")      // Оставшееся время
         println("~".repeat(60))
         
-        for (person in people) {
+        for (person in people) {                                                      // выводим лист участников с изменёнными параметрами положения
             // println(" - - -")
             person.move()
         }
         
         println("~".repeat(60))
         
-        Thread.sleep(1000)
-        time--
-    }
+        Thread.sleep(1000)                                                           // Уводим программу в сон на 1000 мс ~ 1 с 
+        time--                                                                       // Учитываем прошедшую секунду  ^ , выводим соответствующую информацию и повторям цикл ещё time - 1 раз
+    }                                                                                //                              |
     
-    println("Симуляция завершена!")
+    println("Симуляция завершена")
 }
