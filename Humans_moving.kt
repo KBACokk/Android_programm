@@ -3,14 +3,14 @@ import kotlin.random.Random
 class Human(
     var Name: String,                              
     var age: Int,                                   // Создаём класс Human со свойствами Имя, востраст и текущая скорость.
-    var currentSpeed: Int
+    var Speed: Int
 ) {
     var x: Int = 0                                 // Задаём начальные координаты для всех симуляций людей ( 0 ; 0 ) соответственно
     var y: Int = 0
     
     fun move() {
-        x += Random.nextInt(-currentSpeed, currentSpeed)           // случайно "добавляем" или "удаляем" значение равное +/- текущей скорости к значению координат
-        y += Random.nextInt(-currentSpeed, currentSpeed)
+        x += Random.nextInt(-Speed, Speed)           // случайно "добавляем" или "удаляем" значение равное +/- текущей скорости к значению координат
+        y += Random.nextInt(-Speed, Speed)
 
         println("${Name.padEnd(20)} (${age} лет)  | $x | $y |")    // просто выводим информацию об участникахсимуляции
     }
