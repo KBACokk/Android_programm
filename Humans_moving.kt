@@ -1,5 +1,15 @@
 import kotlin.random.Random
 
+val carBrands = listOf(
+    "Toyota Camry", "Kia Rio", "Lada Granta", "Volkswagen Polo",
+    "Hyundai Solaris", "Skoda Octavia", "Renault Logan", "Ford Focus",
+    "Nissan Almera", "Chevrolet Cruze", "BMW 3 Series", "Mercedes-Benz C-Class",
+    "Audi A4", "Volvo XC60", "Honda Civic", "Mazda 3", "Subaru Impreza",
+    "Lexus ES", "Infiniti Q50", "Porsche 911"
+)
+                                                                                               // Списки марок машин и категорий прав
+val licenseCategories = listOf("A", "B", "C", "D", "BE", "CE", "DE")
+
 open class Human(
     var Name: String,
     var age: Int,                                   // Создаём класс Human со свойствами Имя, востраст и текущая скорость.
@@ -19,11 +29,12 @@ open class Human(
 class Driver(
     Name: String,
     age: Int,
-    Speed: Int
+    Speed: Int,
+    val carBrand: String = carBrands.random(),                // Случайная марка машины
+    val licenseCategory: String = licenseCategories.random()  // Случайная категория прав
 ) : Human(Name, age, Speed) {
 
     override fun move() {
-        // Движение только по горизонтали или вертикали (без диагоналей)
         when (Random.nextInt(0, 2)) {
             0 -> { // Движение по горизонтали
                 x += if (Random.nextBoolean()) Random.nextInt(-Speed, Speed + 1) else -Random.nextInt(-Speed, Speed + 1)
@@ -33,7 +44,7 @@ class Driver(
             }
         }
 
-        println("${Name.padEnd(20)} (${age} лет)  | ${x.toString().padStart(3)} | ${y.toString().padStart(3)} | [Водитель]")
+        println("${Name.padEnd(20)} (${age} лет)  | ${x.toString().padStart(3)} | ${y.toString().padStart(3)} | [Водитель: $carBrand, права: $licenseCategory]")
     }
 }
 
@@ -53,21 +64,24 @@ fun main() {
         Driver("Валерия Шевелькова", 27, 3),
         Human("Павел Шевельков", 27, 2),
         Human("Алексей Чудов", 27, 9),
-        Human("Иван Русанов", 27, 2),
-        Human("Илья Нестеров", 27, 1)
+        Driver("Иван Русанов", 27, 2),
+        Driver("Илья Нестеров", 27, 1)
     )
 
+    
+    println("=".repeat(70))
+    println()
+
     while (time > 0) {
-        println("~".repeat(60))                                                       // Визуальное разделение границ вывод по времени
+        println("~".repeat(70))                                                       // Визуальное разделение границ вывод по времени
         println("            [          Время: ${6 - time} секунда           ]")      // Оставшееся время
-        println("~".repeat(60))
+        println("~".repeat(70))
 
         for (person in people) {                                                      // выводим лист участников с изменёнными параметрами положения
-            // println(" - - -")
             person.move()
         }
 
-        println("~".repeat(60))
+        println("~".repeat(70))
 
         Thread.sleep(1000)                                                           // Уводим программу в сон на 1000 мс ~ 1 с
         time--                                                                       // Учитываем прошедшую секунду  ^ , выводим соответствующую информацию и повторям цикл ещё time - 1 раз
