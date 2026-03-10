@@ -1,0 +1,7 @@
+[submodule "Desktop/Android_back/third_party/third_party/implot"]
+	path = Desktop/Android_back/third_party/third_party/implot
+	url = https://github.com/epezent/implot.git
+[submodule "Desktop/Android_back/third_party/third_party/imgui"]
+	path = Desktop/Android_back/third_party/third_party/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
