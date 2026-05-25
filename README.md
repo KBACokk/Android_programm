@@ -1,37 +1,53 @@
-# Проект: Разработка приложения по отслеживаинию и анализу трафика движения на Android
+# Проект: Отслеживание и анализ сетевого трафика на Android
 
-**Краткое описание**: Разработка приложения на основе языка Kotkin, предназначенная для отслеживания трафика передвижения участников сети
+Мобильное Android-приложение + десктопный сервер для мониторинга параметров сотовой сети в реальном времени.
+
+## Автор
+
+**Стаценко Александр**, группа ИКС-432
+
+---
+
+## Архитектура
+
+- **Android-клиент** (Kotlin) - сбор GPS, данных сотовых вышек и уровня сигнала, отправка на сервер через ZeroMQ
+[https://github.com/KBACokk/Android_back]
+
+- **Серверный бэкенд** (C++) - приём телеметрии, сохранение в файл, визуализация через ImGui/ImPlot
+[https://github.com/KBACokk/Android_programm]
+
+---
+
+## Android-клиент
 
 
-## Студент: Стаценко Александр, группы ИКС - 432
+### Экраны приложения
 
-# Этапы разработки
----
-## Практика 1. Основы ООП, "Ходячий".
-- [x] Создание класса Human(), со свойствами: ФИО, возраст, скорость;
-- [x] Класс должен содержать методы реализующие использование свойств класса;
-- [x] В основной функции main создать масив симуляций, представляющих из себя объекты, реализующие свойства классов, в количестве, соответствующем своему варианту (14);
----
-## Практика 2. Наследование.
-- [x] В качестве нового функционала, необходимо добавить класс-наследник Driver(), который должен будет наследовать некоторые свойства от класса Human();
-- [x] В основной функции main переобозначить 2-4 объекта класса Human(), в класс Driver();
-- [x] В классе move() реализовать паралельное движение каждого из объектов, используя thread;
----
-## Практика 3. Интерфейс.
-- [x] СОздать интерфейс Movable() с шаблоном свойств и методдами, необходимыми для реализации движениия;
-- [x] Провести рефакторинг текущей кодовой базы:
-  - Разделить классы/интерфейсы на файлы (1 класс = 1 файл);
-  - Обновить онаписание в README.md с описанием свойст [отдельных файлов](#отжельные-файлы);
+| Экран | Файл | Описание |
+|---|---|---|
+| Главный экран | [MainActivity.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/MainActivity.kt) | Навигация по модулям |
+| Калькулятор | [Calculator.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/Calculator.kt) | Арифметические операции |
+| Аудиоплеер | [MediaPlayer.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/MediaPlayer.kt) | Воспроизведение музыки |
+| GPS-трекер | [Location.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/Location.kt) | Отслеживание координат, сохранение в JSON |
+| Телефония | [Telephony.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/Telephony.kt) | Информация о сотовых вышках (GSM/LTE/NR) |
+| ZMQ-клиент | [Sockets.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_project/Sockets.kt) | Отправка данных на сервер |
+| Фоновый сервис | [BackgroundService.kt](https://github.com/KBACokk/Android_programm/blob/main/app/src/main/java/com/example/android_programm/BackgroundService.kt) | Периодическая отправка телеметрии (каждые 7.5 сек) |
 
-## Отдельные файлы
-- # [Main()](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/MainMove.kt)
-Основная функция, содержащая массив данных по каждому офбъекту симуляции, а так же осуществляющая вывод текста в терминале с соответствующим оформлением и обозначением о каждом объекте различных классов;
 ---
-- # [Lists](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Lists.kt)
-Файл, непосредственнос содержащий дополнитьные данные по каждому обекту, определяюемые для класса Driver();
----
-- # [Driver()](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Driver.kt)
-Реализует простой функционал с получением Данных из массивов Lists, для определения дополнительных данных для каждого из объектов класса, а так же выполняет функционал передвижения в декартовой системе координат, с принцопом прямоголинейного движения (только по прямой);
----
-- # [Movable()](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Movable.kt)
-Файл с интерфейсом, задающим шаблоны для классов, содержащих соответствующие свойства и функционал;
+
+## Серверный бэкенд (`Android_back/`)
+
+
+
+- Приём JSON-телеметрии через ZeroMQ (TCP, порт 7777)
+- Визуализация: текущие данные, график сигнала, журнал пакетов
+
+
+### Файлы ранних практик
+
+| Файл | Описание |
+|---|---|
+| [MainMove.kt](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/MainMove.kt) | Основная функция с массивом симуляций |
+| [Lists.kt](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Lists.kt) | Дополнительные данные для `Driver()` |
+| [Driver.kt](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Driver.kt) | Класс `Driver()` - движение в декартовой системе |
+| [Movable.kt](https://github.com/KBACokk/Android_programm/blob/main/untitled/src/Movable.kt) | Интерфейс `Movable()` |
